@@ -47,3 +47,13 @@ class PostForm(forms.ModelForm):
         self.fields['message'].label = '心情留言'
         self.fields['del_pass'].label = '设置密码'
         self.fields['captcha'].label = '确定你不是机器人' 
+		
+class ProfileForm(forms.ModelForm):
+	class Meta:
+		model=models.Profile
+		fields=['height','male','website']
+	def __init__(self,*args,**kwargs):
+		super(ProfileForm,self).__init__(*args,**kwargs)
+		self.fields['height'].label='身高(cm)'
+		self.fields['male'].label='是男生吗'
+		self.fields['website'].label='个人网站'

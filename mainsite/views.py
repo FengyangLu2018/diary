@@ -23,16 +23,29 @@ def index(request, pid=None, del_pass=None):
     html=template.render(context=locals(),request=request)
     return HttpResponse(html)
 
-@login_required(login_url='/login')
+@login_required(login_url='/login/')
 def userinfo(request):
     if request.user.is_authenticated():
         username = request.user.username
-        try:
-            userinfo = User.objects.get(username=username)
-        except:
-            pass
+    user = User.objects.get(username=username)
+    try:
+        profile = models.Profile.objects.get(user=user)
+    except:
+        profile = models.Profile(user=user)
+
+    if request.method == 'POST':
+        profile_form = forms.ProfileForm(request.POST, instance=profile)
+        if profile_form.is_valid():
+            messages.add_message(request, messages.INFO, "个人资料已保存")
+            profile_form.save()  
+            return HttpResponseRedirect('/userinfo')
+        else:
+            messages.add_message(request, messages.INFO, '要修改个人资料，每一个字段都要填...')
+    else:
+        profile_form = forms.ProfileForm()
+
     template = get_template('userinfo.html')
-    html = template.render(locals())
+    html=template.render(context=locals(),request=request)
     return HttpResponse(html)
 
 

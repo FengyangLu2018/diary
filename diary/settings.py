@@ -31,7 +31,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'django_registration',
+	'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -127,3 +128,29 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS=[
 	os.path.join(BASE_DIR,'static'),
 ]
+'''
+EMAIL_BACKEND='django_mailgun.MailgunBackend'
+MAILGUN_ACCESS_KEY='147e74dc40bc15af5f70ad21198c59bf-acb0b40c-020f5e80'
+MAILGUN_SERVER_NAME='sandboxe85370e589a847b6a082271c502162ed.mailgun.org'
+
+ACCOUNT_ACTIVATION_DAYS=7
+'''
+
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_EMAIL_SUBJECT_PREFIX = '[Django Registration Test App]'
+SEND_ACTIVATION_EMAIL = True
+REGISTRATION_AUTO_LOGIN = False
+ 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+ 
+DEFAULT_FROM_EMAIL = 'lufengyang07@163.com'
+EMAIL_HOST_PASSWORD = 'fengyanglu2018'
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
+ 
+# Host for sending email.
+EMAIL_HOST = 'smtp.163.com'
+ 
+# Port for sending email.
+EMAIL_PORT = 25
+
+EMAIL_USE_TLS = False

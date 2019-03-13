@@ -11,9 +11,27 @@
             </div>
     </div>
 </div>
-<p>
-    您的姓名：{{ userinfo.username }}<br/>
-    电子邮件：{{ userinfo.email }}
-</p>
+<div class='row'>
+    <div class='col-md-12'>
+        <div class='panel panel-primary'>
+            <div class='panel-heading' align=center>
+                {{ profile.user.username | upper }}
+            </div>
+            <div class='panel panel-body'>
+                电子邮件：{{ profile.user.email }}<br/>
+                身高：{{ profile.height }} cm<br/>
+                性别：{{ profile.male | yesno:"男生,女生"}}<br/>
+                个人网站：<a href='{{ profile.website }}'>{{ profile.website }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+<form name='myname' action='.' method='POST'>
+    {% csrf_token %}
+    <table>
+    {{ profile_form.as_table }}
+    </table>
+    <input type='submit' value='修改个人资料'>
+</form>
 </div>
 {% endblock %}
